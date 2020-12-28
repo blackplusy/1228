@@ -1,0 +1,101 @@
+索引:
+	一本书的目录：增加查询的速度，降低增删改效率
+	如果该列增加了主键约束会自动添加索引
+
+	普通索引:
+	语法:create index 名  on 表(列)
+		create index a_index on a(name);
+		a表中name列创建索引
+
+	联合索引:
+	一个索引中覆盖表中两个或者多个字段
+		create index b_index on  a(name,sal);
+		减少磁盘空间，每创建一个索引都是创建了一个索引文件，增加磁盘空间
+
+	mysql索引优点和原则
+		优点:
+			加快查询
+		缺点:
+			创建索引占用空间，随着数据量增加耗费的时间增长
+		原则:
+			索引不是越多越好，合理
+			对于经常更新表避免对其进行多个索引创建
+			索引时间短，索引不会产生优化效果
+======================================================================
+1.mongodb
+	a.基础
+		1>mongodb安装
+			https://fastdl.mongodb.org/windows/mongodb-windows-x86_64-4.4.2.zip
+			a.操作系统类型
+				unix
+				linux
+				windows
+			b.操作系统位数
+				x86  i386 i686 i586   32位
+				x64  x86_64           64位
+			c.软件版本
+				最新
+			d.解压压缩包
+	b.mongodb的服务
+		c/s架构软件
+			c:客户端
+			s:服务器
+		c------------/------------s
+		mongo                 mongod
+		1>mongodb的启动
+			a.启动命令(命令提示符)
+				mongod --dbpath f:\data
+				mongod --dbpath f:\data --logpath f:\data\mongo.log
+				mongod  	mongodb的主服务
+				--dbpath  	数据存放的路径(文件夹)
+				--logpath   日志文件存放的位置(文件)
+			b.启动方式
+				b1>进入到命令所在文件夹进行操作
+					f:
+					cd mongodb-win32-x86_64-2012plus-4.2.8\bin
+				b2>设置环境变量(让系统可以找到对应命令)
+					计算机--属性--高级--环境变量--系统变量--Path中添加mongodb的bin路径
+					;F:\mongodb-win32-x86_64-2012plus-4.2.8\bin
+					确定X3
+			c.检查服务和端口
+				c1>检查服务
+					mongod  mongodb的主服务
+					win+r--cmd--tasklist | find "mongod"
+					tasklist    查看当前运行的所有进程
+					|           管道，前面的输出作为后面的输入
+					find        搜索
+				c2>检查端口
+					端口:区分应用层进程的标识
+					mongodb的默认端口27017
+					win+r--cmd--netstat -an | find "27017"
+					netstat -an  查看电脑中开放的所有端口
+				c3>补充
+					0.0.0.0               任意IP
+					127.0.0.1==localhost  电脑本机
+		2>mongodb的登录
+			mongo
+				登录本地test数据库
+			mongo 127.0.0.1/admin
+				登录IP地址 127.0.0.1的admin数据库
+			mongo 127.0.0.1:27017/admin
+				登录IP地址 127.0.0.1的端口27017的admin数据库
+		3>基础命令
+			数据库软件分为2部分 数据库软件  数据库数据
+			常说的数据库是数据库数据
+				mysql     mongodb
+				关系型     非关系型
+				表         集合
+				数据       文档
+			db  查看当前数据库的名字
+			show databases
+			show dbs
+				查看当前有哪些数据库
+			use admin
+				当前数据库切换为admin
+			show tables
+			show collections
+				查看当前数据库中有哪些集合
+			db.system.version.find()
+				查看system.version的集合中的文档
+
+
